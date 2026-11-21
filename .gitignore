@@ -1,0 +1,6 @@
+# Compiled files
+*.o
+*/process
+
+# VS Code temporary files
+tempCodeRunnerFile.c
