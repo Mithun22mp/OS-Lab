@@ -33,9 +33,7 @@ void fifo(int pages[], int n, int frames)
         }
 
         if (found)
-        {
             hits++;
-        }
         else
         {
             memory[pointer] = pages[i];
@@ -102,70 +100,6 @@ void lru(int pages[], int n, int frames)
     displayResult("LRU PAGE REPLACEMENT", faults, hits);
 }
 
-void optimal(int pages[], int n, int frames)
-{
-    int memory[MAX];
-    int faults = 0, hits = 0;
-
-    for (int i = 0; i < frames; i++)
-        memory[i] = -1;
-
-    for (int i = 0; i < n; i++)
-    {
-        int found = 0;
-
-        for (int j = 0; j < frames; j++)
-        {
-            if (memory[j] == pages[i])
-            {
-                found = 1;
-                break;
-            }
-        }
-
-        if (found)
-        {
-            hits++;
-        }
-        else
-        {
-            int replace = -1;
-            int farthest = -1;
-
-            for (int j = 0; j < frames; j++)
-            {
-                if (memory[j] == -1)
-                {
-                    replace = j;
-                    break;
-                }
-
-                int nextUse = n;
-
-                for (int k = i + 1; k < n; k++)
-                {
-                    if (pages[k] == memory[j])
-                    {
-                        nextUse = k;
-                        break;
-                    }
-                }
-
-                if (nextUse > farthest)
-                {
-                    farthest = nextUse;
-                    replace = j;
-                }
-            }
-
-            memory[replace] = pages[i];
-            faults++;
-        }
-    }
-
-    displayResult("OPTIMAL PAGE REPLACEMENT", faults, hits);
-}
-
 int main(void)
 {
     int n, frames;
@@ -174,7 +108,6 @@ int main(void)
     printf("PAGE REPLACEMENT ALGORITHMS\n");
 
     printf("Enter number of page references: ");
-
     if (scanf("%d", &n) != 1 || n < 1 || n > MAX)
     {
         printf("Invalid number of page references.\n");
@@ -193,7 +126,6 @@ int main(void)
     }
 
     printf("Enter number of frames: ");
-
     if (scanf("%d", &frames) != 1 || frames < 1 || frames > MAX)
     {
         printf("Invalid number of frames.\n");
@@ -202,7 +134,6 @@ int main(void)
 
     fifo(pages, n, frames);
     lru(pages, n, frames);
-    optimal(pages, n, frames);
 
     return 0;
 }
