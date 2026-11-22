@@ -1,5 +1,6 @@
 # Compiled files
 *.o
+*.out
 */process
 
 # VS Code temporary files
